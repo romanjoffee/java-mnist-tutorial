@@ -1,2 +1,7 @@
 # java-mnist-tutorial
-mnist implementation in java
+
+## Data model
+*See [MNIST](http://yann.lecun.com/exdb/mnist/) for description of the MNIST data*
+
+## Mnist implementation in java
+

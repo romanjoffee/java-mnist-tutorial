@@ -1,0 +1,33 @@
+server:
+  port: 7150
+
+spring:
+  profiles:
+    include: general #concurrent
+  application:
+    name: mnist
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:jhipster;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;
+    username:
+    password:
+
+mnist:
+  trainingImgDataFile: "train-images-ubyte"
+  trainingLabelDataFile: "train-labels-ubyte"
+  testingImgDataFile: "test-images-ubyte"
+  testingLabelDataFile: "test-labels-ubyte"
+
+  hiddenLayerNeurons: 30
+  outputLayerNeurons: 10
+  miniBatchSize: 10
+  learningRate: 3.0
+  gaussianDistributionMean: 0
+  gaussianDistributionStdDeviation: 1.0
+  epochCount: 150
+
+  workerPoolCoreSize: 10
+  workerPoolMaxSize: 10
+  workerKeepAliveSeconds: 60
+  workerThreadNamePrefix: "training-worker-thread-"
+  workerQueueCapacity: 1000000
