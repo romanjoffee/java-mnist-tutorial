@@ -34,7 +34,6 @@ public class AppConfiguration {
 
     private int epochCount;
 
-
     private int workerPoolCoreSize;
 
     private int workerPoolMaxSize;
