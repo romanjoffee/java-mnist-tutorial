@@ -17,11 +17,11 @@ mvn clean install -U
 Java 8
 
 ## Description
-Spring-boot app.
+Spring-boot app
 
 Configuration is set in `AppConfiguration.java` and `application.yml`
 
-Main model logic (i.e. back-propagation) is in `Processor.java`.
+Main model logic (i.e. back-propagation) is in `Processor.java`
 
 Training can be executed in 2 modes - `serial` and `concurrent`
 
