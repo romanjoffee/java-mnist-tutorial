@@ -24,7 +24,7 @@ mnist:
   learningRate: 3.0
   gaussianDistributionMean: 0
   gaussianDistributionStdDeviation: 1.0
-  epochCount: 10
+  epochCount: 20
 
   workerPoolCoreSize: 10
   workerPoolMaxSize: 10
