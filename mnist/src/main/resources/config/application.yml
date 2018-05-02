@@ -26,8 +26,8 @@ mnist:
   gaussianDistributionStdDeviation: 1.0
   epochCount: 20
 
-  workerPoolCoreSize: 10
-  workerPoolMaxSize: 10
+  workerPoolCoreSize: 5
+  workerPoolMaxSize: 5
   workerKeepAliveSeconds: 60
   workerThreadNamePrefix: "training-worker-thread-"
   workerQueueCapacity: 1000000
