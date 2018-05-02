@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    include: general #concurrent
+    include: concurrent
   application:
     name: mnist
   datasource:

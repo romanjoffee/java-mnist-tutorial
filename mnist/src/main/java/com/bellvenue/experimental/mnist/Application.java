@@ -19,6 +19,6 @@ public class Application {
         DateTimeZone.setDefault(DateTimeZone.UTC);
         SpringApplication app = new SpringApplication(Application.class);
         app.setBannerMode(Banner.Mode.OFF);
-        Environment env = app.run(args).getEnvironment();
+        app.run(args).getEnvironment();
     }
 }

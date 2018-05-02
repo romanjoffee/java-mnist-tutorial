@@ -2,7 +2,7 @@
 
 Neural network to classify MNIST handwritten digits - implemented in Java
 
-## Data model description
+## Data model
 
 *See [MNIST](http://yann.lecun.com/exdb/mnist/) for description of the MNIST data*
 
@@ -17,9 +17,9 @@ mvn clean install -U
 Java 8
 
 ## Description
-Spring-boot application with Dependency Injection.
+Spring-boot app.
 
-App configuration is set in `AppConfiguration.java` and `application.yml`
+Configuration is set in `AppConfiguration.java` and `application.yml`
 
 Main model logic (i.e. back-propagation) is in `Processor.java`.
 
