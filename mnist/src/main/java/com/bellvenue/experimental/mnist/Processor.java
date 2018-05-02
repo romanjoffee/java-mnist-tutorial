@@ -13,7 +13,6 @@ import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.random.RandomDataGenerator;
-import org.apache.commons.math3.util.FastMath;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -62,18 +61,11 @@ public class Processor {
         for (int layerIndex = 1; layerIndex < layers.size(); layerIndex++) {
             RealMatrix layerWeights = weights.get(layerIndex);
             RealMatrix layerBiases = biases.get(layerIndex);
-            int neuronsCurrentLayer = layers.get(layerIndex);
-            double[] zsArray = new double[neuronsCurrentLayer];
-            double[] activationsArray = new double[neuronsCurrentLayer];
 
-            for (int neuronIndex = 0; neuronIndex < neuronsCurrentLayer; neuronIndex++) {
-                double z = layerWeights.getRowVector(neuronIndex).dotProduct(activations.get(layerIndex - 1).getColumnVector(0)) + layerBiases.getEntry(neuronIndex, 0);
-                zsArray[neuronIndex] = z;
-                double activation = sigmoid(z);
-                activationsArray[neuronIndex] = activation;
-            }
-            activations.put(layerIndex, new Array2DRowRealMatrix(activationsArray));
-            zs.put(layerIndex, new Array2DRowRealMatrix(zsArray));
+            RealMatrix z = layerWeights.multiply(activations.get(layerIndex - 1)).add(layerBiases);
+            zs.put(layerIndex, z);
+            ArrayRealVector activationsVector = (ArrayRealVector) sigmoid(z.getColumnVector(0));
+            activations.put(layerIndex, new Array2DRowRealMatrix(activationsVector.getDataRef()));
         }
         return FeedForwardResult.builder()
                 .activations(activations)
@@ -90,8 +82,8 @@ public class Processor {
             if (layerIndex == layers.size() - 1) {
                 RealVector costDerivative = costFuncDerivative(feedForwardResult, observation.getLabelVector(), layerIndex);
                 RealVector sigmoidPrime = sigmoidPrime(feedForwardResult.getZs().get(layerIndex).getColumnVector(0));
-                RealVector deltaVector = costDerivative.ebeMultiply(sigmoidPrime);
-                delta = new Array2DRowRealMatrix(((ArrayRealVector) deltaVector).getDataRef());
+                ArrayRealVector deltaVector = (ArrayRealVector) costDerivative.ebeMultiply(sigmoidPrime);
+                delta = new Array2DRowRealMatrix(deltaVector.getDataRef());
                 biasErrors.put(layerIndex, delta);
                 RealMatrix activationsPrevLayer = feedForwardResult.getActivations().get(layerIndex - 1);
                 RealMatrix weightError = delta.multiply(activationsPrevLayer.transpose());
@@ -102,8 +94,8 @@ public class Processor {
             RealMatrix z = feedForwardResult.getZs().get(layerIndex);
             RealVector sigmoidPrime = sigmoidPrime(z.getColumnVector(0));
             RealMatrix intermediate = w.transpose().multiply(delta);
-            RealVector deltaVector = intermediate.getColumnVector(0).ebeMultiply(sigmoidPrime);
-            delta = new Array2DRowRealMatrix((((ArrayRealVector) deltaVector).getDataRef()));
+            ArrayRealVector deltaVector = (ArrayRealVector) intermediate.getColumnVector(0).ebeMultiply(sigmoidPrime);
+            delta = new Array2DRowRealMatrix(deltaVector.getDataRef());
 
             biasErrors.put(layerIndex, delta);
             RealMatrix activationsPrevLayer = feedForwardResult.getActivations().get(layerIndex - 1);
@@ -121,13 +113,13 @@ public class Processor {
         return feedForwardResult.getActivations().get(layerIndex).getColumnVector(0).subtract(y);
     }
 
-    private double sigmoid(double z) {
-        return 1 / (1 + FastMath.exp(-z));
+    private RealVector sigmoid(RealVector v) {
+        return v.mapToSelf(new Sigmoid());
     }
 
-    private RealVector sigmoidPrime(RealVector zs) {
-        RealVector resultZ = zs.mapToSelf(new Sigmoid());
-        return resultZ.ebeMultiply(resultZ.mapMultiply(-1).mapAdd(1)); // equivalent to sigmoid(z) * (1 - sigmoid(z))
+    private RealVector sigmoidPrime(RealVector v) {
+        RealVector sigmoid = sigmoid(v);
+        return sigmoid.ebeMultiply(sigmoid.mapMultiply(-1).mapAdd(1)); // equivalent to sigmoid(z) * (1 - sigmoid(z))
     }
 
     private LayerMap generateRandomWeights(List<Integer> layers) {
