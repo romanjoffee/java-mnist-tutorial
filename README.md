@@ -35,7 +35,7 @@ spring:
 
 `concurrent` - execute batches in concurrent mode - each batch will processed concurrently in a thread-pool
 
-Model produces ~94 % accuracy after 20 epochs
+Model produces ~94% test accuracy after 20 epochs
 ```
 Epoch 1: Correct guesses 9191 of 10000
 Epoch 2: Correct guesses 9251 of 10000
