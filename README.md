@@ -31,9 +31,11 @@ spring:
   profiles:
     include: general
 ```
-`general` - execute training in serial mode - each batch will processed synchronously
+`general` - execute training in serial mode - each batch will be processed synchronously
 
-`concurrent` - execute batches in concurrent mode - each batch will processed concurrently in a thread-pool
+`concurrent` - execute batches in concurrent mode - each batch will be processed concurrently in a thread-pool
+
+### Performance
 
 Model produces ~94% test accuracy after 20 epochs
 ```
