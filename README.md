@@ -34,3 +34,15 @@ spring:
 `general` - execute training in serial mode - each batch will processed synchronously
 
 `concurrent` - execute batches in concurrent mode - each batch will processed concurrently in a thread-pool
+
+Model produces ~94 % accuracy after 20 epochs
+```
+Epoch 1: Correct guesses 9191 of 10000
+Epoch 2: Correct guesses 9251 of 10000
+Epoch 3: Correct guesses 9301 of 10000
+...
+...
+...
+Epoch 19: Correct guesses 9400 of 10000
+Epoch 20: Correct guesses 9427 of 10000
+```
