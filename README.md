@@ -26,8 +26,7 @@ Configuration is set in `AppConfiguration.java` and `application.yml`
 
 Main model logic (i.e. back-propagation) is in `Processor.java`
 
-Training can be executed in 2 modes - `general` and `concurrent`
-To change between modes edit `application.yml` entry:
+Training can be executed in 2 modes - `general` and `concurrent`. To change between modes edit `application.yml` entry:
 ```
 spring:
   profiles:
