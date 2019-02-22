@@ -7,10 +7,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
-import java.util.zip.GZIPInputStream;
 
 @Component
 public class DataLoader {

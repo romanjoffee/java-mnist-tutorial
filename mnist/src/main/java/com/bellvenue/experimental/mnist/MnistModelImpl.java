@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import java.time.Duration;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +44,7 @@ class MnistModelImpl extends MnistModel {
             processBatch(trainingData.getData(), index, index + configuration.getMiniBatchSize());
         }
         setEnd(Instant.now());
-        log.info("Duration of training: " + Duration.between(getStart(), getEnd()));
+        //log.info("Duration of training: " + Duration.between(getStart(), getEnd()));
     }
 
     @Override
@@ -60,7 +59,7 @@ class MnistModelImpl extends MnistModel {
                 correctGuesses.incrementAndGet();
             }
         });
-        log.info("Epoch {}: Correct guesses {}", epoch, correctGuesses.get());
+        log.info("Epoch {}: Correct guesses {} of 10000", epoch, correctGuesses.get());
     }
 
     private void processBatch(List<MnistObservation> trainingData, int batchStartIndex, int batchEndIndex) {

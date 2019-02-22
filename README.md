@@ -17,14 +17,16 @@ mvn clean install -U
 Java 8
 
 ## Description
-Spring-boot app
+
+To run the model execute `Application.java`
+
+Code-base built as Spring Boot app
 
 Configuration is set in `AppConfiguration.java` and `application.yml`
 
 Main model logic (i.e. back-propagation) is in `Processor.java`
 
-Training can be executed in 2 modes - `serial` and `concurrent`
-
+Training can be executed in 2 modes - `general` and `concurrent`
 To change between modes edit `application.yml` entry:
 ```
 spring:
